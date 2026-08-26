@@ -13,7 +13,7 @@ def add_student(student_id, name, course, age):
 
 ##find student
 def find_student(student_id):
-    students.get(student_id, False)
+    return students.get(student_id, False)
 
 ##update student name
 def update_name(student_id, new_name):
@@ -31,12 +31,15 @@ def update_course(student_id, new_course):
 
 ## remove_student
 def remove_student(student_id):
-    students.pop(student_id, None)
+    return students.pop(student_id, None)
 
 ## display all students
 def display_all_students():
+    names=[]
     for v in students.values():
-        print(v["name"])
+        names.append(v["names"])
+        # print(v["name"])
+    return names
 
 ## add marks
 def add_marks(student_id, new_mark):
@@ -78,26 +81,26 @@ def best_course():
         if v > best_count:
             best_count = v
             best_course = k
-print (best_course)
+    return best_course
 
 ## character frequency
-input = 'programming'
+text = 'programming'
 freq = {}
-for char in input:
+for char in text:
     freq[char]=freq.get(char, 0) + 1
 print(freq)
 
 ## Unique Marks, and return only one count elements
-input = [70,80,70,90,80,95,23]
+# text = [70,80,70,90,80,95,23]
 freq = {}
-for i in input:
+for i in text:
     freq[i] = freq.get(i, 0) + 1
 
 unique_marks = []
 for k, v in freq.items():
     if v == 1:
         unique_marks.append(k)
-print(unique_marks)
+    return unique_marks
 
 #%% Highest Mark Student Given student_id -> mark, return the ID with highest mark without max(..., key=...).
 def highest_mark(student_id):
@@ -108,7 +111,7 @@ def highest_mark(student_id):
     for k, v in students.items():
         for mark in v["marks"]:
             if mark > highest_marks:
-                highest_mark = mark
+                highest_marks = mark
                 best_student = k
     return best_student
 
