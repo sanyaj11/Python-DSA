@@ -123,6 +123,8 @@ def average_mark(student_id):
         return False
     w = 0
     marks = students[student_id]["marks"]
+    if not marks:
+        return False
     for i in marks: 
         w = w + i
     average = w/(len(students[student_id]["marks"]))
