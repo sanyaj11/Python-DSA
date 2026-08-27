@@ -105,9 +105,16 @@ def unique_marks_list():
     return unique_marks
 
 #%% Highest Mark Student Given student_id -> mark, return the ID with highest mark without max(..., key=...).
-def highest_mark(student_id):
-    if student_id not in students:
-        return False
+def highest_mark():
+    # if student_id not in students:
+    #     return False
+    # marks = students[student_id]["marks"] ## return highest from a student only
+    # max = 0
+    # for mark in marks:
+    #     if mark > max:
+    #         max = mark
+    #     return max
+    
     highest_marks = 0
     best_student = None
     for k, v in students.items():
