@@ -100,9 +100,9 @@ print(find_score(score_index,78))
 scores = [60, 70, 70, 70, 80, 90]
 target = 70
 
-def first_occurrence(scores, target):
-    left = 0
-    right = len(scores) - 1
+def first_occurrence(scores, target):               #Best: O(1) if the first mid is the score.
+    left = 0                                        #Worst: O(log n) if the score is at an end or missing.
+    right = len(scores) - 1                         #Extra space: O(1) - left, right, mid
     w = -1
     while left <= right:
         mid = (left + right)//2
