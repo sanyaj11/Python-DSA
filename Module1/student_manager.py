@@ -13,7 +13,7 @@ def add_student(student_id, name, course, age):
 
 ##find student
 def find_student(student_id):
-    return students.get(student_id, False)
+    return students.get(student_id, None)
 
 ##update student name
 def update_name(student_id, new_name):
@@ -31,15 +31,21 @@ def update_course(student_id, new_course):
 
 ## remove_student
 def remove_student(student_id):
-    return students.pop(student_id, None)
+    if student_id not in students:
+        return False
+    del students[student_id]
+    # students.pop(student_id, None)
+    return True
 
 ## display all students
 def display_all_students():
-    names=[]
-    for v in students.values():
-        names.append(v["name"])
+    # names=[]
+    for k, v in students.items():
+        name = v.get("name")
+        course = v.get("course")
+        # names.append(v["name"])
         # print(v["name"])
-    return names
+        print(k + " | " + course + " | " + name )
 
 ## add marks
 def add_marks(student_id, new_mark):
@@ -105,9 +111,16 @@ def unique_marks_list():
     return unique_marks
 
 #%% Highest Mark Student Given student_id -> mark, return the ID with highest mark without max(..., key=...).
-def highest_mark(student_id):
-    if student_id not in students:
-        return False
+def highest_mark():
+    # if student_id not in students:
+    #     return False
+    # marks = students[student_id]["marks"] ## return highest from a student only
+    # max = 0
+    # for mark in marks:
+    #     if mark > max:
+    #         max = mark
+    #     return max
+    
     highest_marks = 0
     best_student = None
     for k, v in students.items():
@@ -115,28 +128,31 @@ def highest_mark(student_id):
             if mark > highest_marks:
                 highest_marks = mark
                 best_student = k
-    return best_student
+    return best_student, highest_marks
 
 ##Average Marks - Given student_id -> list of marks, build student_id -> average.
 def average_mark(student_id):
     if student_id not in students:
-        return False
+        return None
     w = 0
     marks = students[student_id]["marks"]
+    marks_len = len(students[student_id]["marks"])
     if not marks:
-        return False
+        return 0
     for i in marks: 
         w = w + i
-    average = w/(len(students[student_id]["marks"]))
+    average = w/(marks_len)     #(fix length TODO, revise)
     return average
 
- ##Course to Student Names -Transform registry into course -> list of student names. Challenge 11-1
+ ##Course to Student Names -Transform registry into course -> list of student names. Challenge 11-1 ((TODO - all courses, and who all took it, dic))
 def get_student_from_course(course):
     student_names = []
     for k, v in students.items():
             if course == v["course"]:
                 student_names.append(v["name"])
     return student_names
+
+
 
 ## Global Mark Frequency - Combine marks across all profiles into one mark -> count map. Challenge 11-2
 def global_mark_freq():
