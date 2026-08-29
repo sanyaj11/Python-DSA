@@ -13,7 +13,7 @@ nums = [12, 25, 31, 44, 57]
 target = 31
 def linear_search(nums, target):           #best case O(1) -- first index
     for i in range(len(nums)):             # worst case O(n) -- Last index or doesnt exist
-        if nums[i] == target:              # extra space O??
+        if nums[i] == target:              # extra space O?? -- O(1) since we only created i
             return(i)
     return -1
 print(linear_search(nums, target))
@@ -71,3 +71,48 @@ print(binary_search(values, target))
 #                6      6       6       38
 #                7      6       -       STOP  
 
+# %% Binary Search - Task 7 Search for an Exact Score
+score_index = [
+                (73, "ST104"),
+                (78, "ST101"),
+                (84, "ST103"),
+                (91, "ST102")
+            ]
+
+def find_score(score_index,target_score):               #Best: O(1) if the first mid is the score.
+    left = 0                                            #Worst: O(log n) if the score is at an end or missing.
+    right = len(score_index) - 1                        #Extra space: O(1) - left, right, mid
+    while left <= right:
+        mid = (left + right)//2
+        if score_index[mid][0] == target_score:
+            return score_index[mid]
+        elif score_index[mid][0] < target_score:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return None
+print(find_score(score_index,78))
+
+#• What cost would be involved if you had to sort from scratch every single time?
+
+
+# %% Binary Search - Task 8 First Occurrence with Duplicates
+scores = [60, 70, 70, 70, 80, 90]
+target = 70
+
+def first_occurrence(scores, target):
+    left = 0
+    right = len(scores) - 1
+    w = -1
+    while left <= right:
+        mid = (left + right)//2
+        if scores[mid] == target:
+            w = mid
+            right = mid - 1
+        elif scores[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return w
+print(first_occurrence(scores, target))
+# %%
