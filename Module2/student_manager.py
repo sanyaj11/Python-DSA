@@ -2,7 +2,7 @@ from data import students
 
 # Search by name
 def find_by_name(name):                     #best case O(1) -- first person
-    for k, v in students.items():           # worst case O(n) -- Last person or doesnt exist
+    for k, v in students.items():           #worst case O(n) -- Last person or doesnt exist
         if v["name"] == name:
             return k, v
     return "Doesnt exist"
@@ -12,8 +12,8 @@ print(find_by_name("Sanya"))
 nums = [12, 25, 31, 44, 57]
 target = 31
 def linear_search(nums, target):           #best case O(1) -- first index
-    for i in range(len(nums)):             # worst case O(n) -- Last index or doesnt exist
-        if nums[i] == target:              # extra space O?? -- O(1) since we only created i
+    for i in range(len(nums)):             #worst case O(n) -- Last index or doesnt exist
+        if nums[i] == target:              #extra space O?? -- O(1) since we only created i
             return(i)
     return -1
 print(linear_search(nums, target))
@@ -116,3 +116,4 @@ def first_occurrence(scores, target):               #Best: O(1) if the first mid
     return w
 print(first_occurrence(scores, target))
 # %%
+
