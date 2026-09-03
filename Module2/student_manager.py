@@ -223,7 +223,7 @@ def rec_function(left, right, values, target, w):
     if left > right:
         return w 
     mid = (right + left)//2
-    if values[mid] == target:
+    if values[mid] == target: ##TODO
         w = mid
         right = mid - 1
     elif values[mid] < target:
@@ -231,6 +231,7 @@ def rec_function(left, right, values, target, w):
     else:
         return rec_function(left, mid - 1, values, target)
 print(recursive_function(values, target))
+##wrong, need to do again
 
 
 
