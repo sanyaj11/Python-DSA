@@ -161,9 +161,10 @@ print(binary_search(values, target))
 #%% Exercise A - Find first Falling Score
 def failing_score(scores, fail_score):
     for i in range(len(scores)):
-        if scores[i] <= fail_score:
+        if scores[i] < fail_score:
             return scores[i]
-print(failing_score([23, 34, 55, 58, 65], 35))
+    return -1
+print(failing_score([23, 34, 55, 58, 65], 40))
 
 # %% Exercise B - Find all Python students
 def find_students_by_course(course):            #O(n)
@@ -191,4 +192,47 @@ def binary_search(scores, target):
 print(binary_search([34, 54, 56, 88, 90, 95], 90))
 
 # %% Exercise D - Search Insert Position
+values = [3,7,11,18,24,31,42,56,70]
+target = 15
 
+def insert_index(values, target):
+    left = 0
+    right = len(values) - 1
+    while left < right:
+        mid = (left+right)//2
+        if values[mid] == target:
+            return mid
+        elif values[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return left
+print(insert_index(values, target))
+
+# %% Exercise E - First and Last occurence
+values = [10,20,20,20,30,40]
+target = 20
+
+def recursive_function(values, target):
+    left = 0
+    right = len(values) - 1
+    w = -1
+    return rec_function(left, right, values, target)
+
+def rec_function(left, right, values, target, w):
+    if left > right:
+        return w 
+    mid = (right + left)//2
+    if values[mid] == target:
+        w = mid
+        right = mid - 1
+    elif values[mid] < target:
+        return rec_function(mid + 1, right, values, target)
+    else:
+        return rec_function(left, mid - 1, values, target)
+print(recursive_function(values, target))
+
+
+
+
+# %%
