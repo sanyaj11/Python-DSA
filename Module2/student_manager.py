@@ -42,7 +42,7 @@ values = [3,7,11,18,24,31,42,56,70]
 target = 42
 
 def binary_search(values, target):              #best case: mid == target O(1)
-    left = 0                                    #worst case: divide, conquer O(log n)
+    left = 0                                   #worst case: divide, conquer O(log n)
     n = len(values)
     right = n-1
     while left <= right:
@@ -93,8 +93,8 @@ def find_score(score_index,target_score):               #Best: O(1) if the first
     return None
 print(find_score(score_index,78))
 
-#• What cost would be involved if you had to sort from scratch every single time?
-
+#• What cost would be involved if you had to sort from scratch every single time? o(n log n)
+sorting - n log n + binary search - o(log n)
 
 # %% Binary Search - Task 8 First Occurrence with Duplicates
 scores = [60, 70, 70, 70, 80, 90]
@@ -115,5 +115,80 @@ def first_occurrence(scores, target):               #Best: O(1) if the first mid
             right = mid - 1
     return w
 print(first_occurrence(scores, target))
-# %%
+
+# %%  search 
+values = [3,7,11,18,24,31,42,56,70]
+target = 15
+
+def binary_search(values, target):              #best case: mid == target O(1)
+    left = 0                                   #worst case: divide, conquer O(log n)
+    n = len(values)
+    right = n-1
+    while left <= right:
+        mid = (left+right)//2
+        if values[mid] == target:
+            return mid          #index returned
+        if values[mid] < target:
+            left = mid + 1
+        elif values[mid] > target:
+            right = mid - 1
+    return left
+print(binary_search(values, target))
+
+
+# recursive way
+def binary_search(values, target):              #best case: mid == target O(1)
+    left = 0                                   #worst case: divide, conquer O(log n)
+    n = len(values)
+    right = n-1
+    return binary_recu(values, left, right, target)
+
+def binary_recu(values, left, right, target):
+    if left > right:
+        return left
+    mid = (left+right)//2
+    if values[mid] == target:
+        return mid          #index returned
+    if values[mid] < target:
+        return binary_recu(values,mid + 1, right, target)
+    elif values[mid] > target: 
+        return binary_recu(values,left, mid - 1, target)
+print(binary_search(values, target))
+
+
+# %% Chapter - 6 (Page 14)
+
+#%% Exercise A - Find first Falling Score
+def failing_score(scores, fail_score):
+    for i in range(len(scores)):
+        if scores[i] <= fail_score:
+            return scores[i]
+print(failing_score([23, 34, 55, 58, 65], 35))
+
+# %% Exercise B - Find all Python students
+def find_students_by_course(course):            #O(n)
+    result =[]
+    for k, v in students.items():
+        if v["course"] == course:
+            result.append(v["name"])
+        # return result                 ## finds only first student because within loop         
+    return result                       ##finds all students
+print(find_students_by_course("Python"))
+
+#%% Exercise C - Exact Sorted score
+def binary_search(scores, target):
+    left = 0
+    right = len(scores) - 1
+    while left <= right:
+        mid = (left+right)//2
+        if scores[mid] == target:
+            return mid
+        if scores[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+print(binary_search([34, 54, 56, 88, 90, 95], 90))
+
+# %% Exercise D - Search Insert Position
 
