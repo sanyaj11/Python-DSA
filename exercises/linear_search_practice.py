@@ -19,14 +19,14 @@ def linear_search(nums, target):           #best case O(1) -- first index
 print(linear_search(nums, target))
 
 # %% Linear Search - Task 2  Return All Students in a Course
-def find_students_by_course(course):            #O(n)
+def find_all_by_course(course):            #O(n)
     result =[]
     for k, v in students.items():
         if v["course"] == course:
             result.append(v["name"])
         # return result                 ## finds only first student because within loop
     return result                       ##finds all students
-print(find_students_by_course("Python"))
+print(find_all_by_course("Python"))
 
 # %% Linear Search - Task 3 Case-Insensitive Name Search
 def find_by_name_case_insensitive(name):
@@ -48,14 +48,14 @@ def failing_score(scores, fail_score):
 print(failing_score([23, 34, 55, 58, 65], 40))
 
 # %% Exercise B - Find all Python students
-def find_students_by_course(course):            #O(n)
+def find_all_by_course(course):            #O(n)
     result =[]
     for k, v in students.items():
         if v["course"] == course:
             result.append(v["name"])
         # return result                 ## finds only first student because within loop
     return result                       ##finds all students
-print(find_students_by_course("Python"))
+print(find_all_by_course("Python"))
 
 # %% Excercise F - Count comparisons (linear side)
 #  Modify linear and binary search to return both result and comparison count. Compare on large sorted lists

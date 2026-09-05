@@ -1,4 +1,4 @@
-from student_manager import add_student, find_student, update_name, update_course, remove_student, display_all_students, add_marks, course_freq, best_course, average_mark, add_skill
+from student_manager import add_student, find_student, update_name, update_course, remove_student, display_students, add_marks, course_frequency, most_popular_course, average_mark, add_skill
 
 def print_menu():
     print("""
@@ -25,7 +25,7 @@ if __name__ == "__main__":   ##revise this TODO
             name = input("Enter student name: ")
             course = input("Enter course: ")
             age = int(input("Enter age: "))
-            call_function = add_student(student_id, name, course, age)
+            call_function = add_student(student_id, name, age, course)
             print(call_function)
 
         elif user_input == "2":
@@ -51,7 +51,7 @@ if __name__ == "__main__":   ##revise this TODO
             print(call_function)
 
         elif user_input == "6":
-            call_function = display_all_students()
+            call_function = display_students()
             print(call_function)
 
         elif user_input == "7":
@@ -67,11 +67,12 @@ if __name__ == "__main__":   ##revise this TODO
             print(call_function)
 
         elif user_input == "9":
-            call_function = course_freq()
+            call_function = course_frequency()
             print(call_function)
 
         elif user_input == "10":
-            call_function = best_course()
+            freq = course_frequency()
+            call_function = most_popular_course(freq)
             print(call_function)
 
         elif user_input == "11":

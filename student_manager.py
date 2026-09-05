@@ -1,7 +1,7 @@
 from data import students
 
 ##add_student
-def add_student(student_id, name, course, age):
+def add_student(student_id, name, age, course):
     if student_id in students:
         return False
     students[student_id] = {"name": name,
@@ -38,7 +38,7 @@ def remove_student(student_id):
     return True
 
 ## display all students
-def display_all_students():
+def display_students():
     # names=[]
     for k, v in students.items():
         name = v.get("name")
@@ -69,17 +69,23 @@ def freq_marks():
             freq[mark] = freq.get(mark, 0) + 1
     return freq
 
-##find how many took courses 
-def course_freq():
+## Task 8 - count frequency of marks in any given marks list
+def count_marks(marks):
+    freq = {}
+    for mark in marks:
+        freq[mark] = freq.get(mark, 0) + 1
+    return freq
+
+##find how many took courses
+def course_frequency():
     freq = {}
     for v in students.values():
         course = v["course"]
         freq[course] = freq.get(course, 0) + 1
     return freq
 
-## find the best course 
-def best_course():
-    freq = course_freq()          # reuse freq function
+## find the most popular course from a given frequency dict
+def most_popular_course(freq):
     best_count = 0
     best_course = None
 
@@ -144,13 +150,23 @@ def average_mark(student_id):
     average = w/(marks_len)     #(fix length TODO, revise)
     return average
 
- ##Course to Student Names -Transform registry into course -> list of student names. Challenge 11-1 ((TODO - all courses, and who all took it, dic))
+ ##Course to Student Names -Transform registry into course -> list of student names. Challenge 11-1
 def get_student_from_course(course):
     student_names = []
     for k, v in students.items():
             if course == v["course"]:
                 student_names.append(v["name"])
     return student_names
+
+## Course to Student Names, all courses at once -> dict of course -> list of student names. Challenge 11-1
+def course_to_student_names():
+    result = {}
+    for k, v in students.items():
+        course = v["course"]
+        if course not in result:
+            result[course] = []
+        result[course].append(v["name"])
+    return result
 
 
 

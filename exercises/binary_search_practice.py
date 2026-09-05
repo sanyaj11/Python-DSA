@@ -40,7 +40,7 @@ score_index = [
                 (91, "ST102")
             ]
 
-def find_score(score_index,target_score):               #Best: O(1) if the first mid is the score.
+def find_exact_score(score_index,target_score):               #Best: O(1) if the first mid is the score.
     left = 0                                            #Worst: O(log n) if the score is at an end or missing.
     right = len(score_index) - 1                        #Extra space: O(1) - left, right, mid
     while left <= right:
@@ -52,7 +52,7 @@ def find_score(score_index,target_score):               #Best: O(1) if the first
         else:
             right = mid - 1
     return None
-print(find_score(score_index,78))
+print(find_exact_score(score_index,78))
 
 #• What cost would be involved if you had to sort from scratch every single time? o(n log n)
 #sorting - n log n + binary search - o(log n)
@@ -61,7 +61,7 @@ print(find_score(score_index,78))
 scores = [60, 70, 70, 70, 80, 90]
 target = 70
 
-def first_occurrence(scores, target):               #Best: O(1) if the first mid is the score.
+def first_score_occurrence(scores, target):               #Best: O(1) if the first mid is the score.
     left = 0                                        #Worst: O(log n) if the score is at an end or missing.
     right = len(scores) - 1                         #Extra space: O(1) - left, right, mid
     w = -1
@@ -75,7 +75,7 @@ def first_occurrence(scores, target):               #Best: O(1) if the first mid
         else:
             right = mid - 1
     return w
-print(first_occurrence(scores, target))
+print(first_score_occurrence(scores, target))
 
 # %%  search
 values = [3,7,11,18,24,31,42,56,70]
