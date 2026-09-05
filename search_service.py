@@ -95,3 +95,42 @@ def comparison_demo(target):
     print(f"Linear Search checks: {linear_count}")
     print(f"Binary Search checks: {binary_count}")
     return linear_count, binary_count
+
+#challenge 2 - page 16 module 2
+#Given sorted (score, student_id) pairs, return the first student whose score >= target.
+#Binary Search: best O(1), worst O(log n), extra space O(1).
+def first_at_or_above_score(target_score):
+    score_index = build_score_index()
+# score_index = [(42, 'ST101'), (59, 'ST103'), (79, 'ST102')]
+    left = 0
+    right = len(score_index) - 1
+    answer = -1
+    while left <= right:
+        mid = (left + right) // 2
+        if score_index[mid][0] >= target_score:
+            answer = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    if answer == -1:
+        return None
+    return score_index[answer]
+
+#challenge 3 - page 16 module 2
+#Users type a prefix like 'Ash' and want every name starting with it.
+#Linear Search best O(1), worst O(n), extra space O(n) for the result list.
+def find_by_name_prefix(prefix):
+    prefix = prefix.lower()
+    result = []
+    for v in students.values():
+        if v["name"].lower().startswith(prefix) == True:
+            result.append(v["name"])
+    return result
+
+#challenge 4 - page 16 module 2 - Design Decision
+#Exact ID lookup            -> Dictionary lookup. Keys are the IDs, average O(1).
+#Arbitrary unsorted name    -> Linear Search. Names aren't keys so scan everything O(n).
+#Exact score in a maintained sorted score index -> Binary Search. Sorted data + only need one exact match, O(log n).
+#All students in a course   -> Linear Search. Course isn't a key, and we need every match, so a full O(n) scan.
+#Membership in a Set of skills -> Set membership. "in" on a Set is average O(1), no comparisons needed.
+

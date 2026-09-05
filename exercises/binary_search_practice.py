@@ -135,6 +135,7 @@ def binary_search(scores, target):
 print(binary_search([34, 54, 56, 88, 90, 95], 90))
 
 # %% Exercise D - Search Insert Position
+#challenge 1 - page 16 module 2 (same task, reused here)
 values = [3,7,11,18,24,31,42,56,70]
 target = 15
 
