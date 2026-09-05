@@ -7,6 +7,7 @@ students = {
         "age": 20,
         "course": "Python",
         "marks": [78, 85, 91],  #why list? Ordered data
+        "score": 42,
         "skills": {"python", "html"} #why sets? No Duplicates
     },
     "ST102": {
@@ -14,6 +15,7 @@ students = {
         "age": 20,
         "course": "DSA",
         "marks": [75, 80, 91],  #why list? Ordered data
+        "score": 79,
         "skills": {"python", "html"} #why sets? No Duplicates
         },
     "ST103": {
@@ -21,6 +23,7 @@ students = {
         "age": 20,
         "course": "Python",
         "marks": [75, 85, 90],  #why list? Ordered data
+        "score": 59,
         "skills": {"python", "html"} #why sets? No Duplicates
         }
 }
