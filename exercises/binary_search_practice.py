@@ -1,42 +1,3 @@
-from data import students
-
-# Search by name
-def find_by_name(name):                     #best case O(1) -- first person
-    for k, v in students.items():           #worst case O(n) -- Last person or doesnt exist
-        if v["name"] == name:
-            return k, v
-    return "Doesnt exist"
-print(find_by_name("Sanya"))
-
-#%%Linear Search - Task 1
-nums = [12, 25, 31, 44, 57]
-target = 31
-def linear_search(nums, target):           #best case O(1) -- first index
-    for i in range(len(nums)):             #worst case O(n) -- Last index or doesnt exist
-        if nums[i] == target:              #extra space O?? -- O(1) since we only created i
-            return(i)
-    return -1
-print(linear_search(nums, target))
-
-# %% Linear Search - Task 2  Return All Students in a Course
-def find_students_by_course(course):            #O(n)
-    result =[]
-    for k, v in students.items():
-        if v["course"] == course:
-            result.append(v["name"])
-        # return result                 ## finds only first student because within loop         
-    return result                       ##finds all students
-print(find_students_by_course("Python"))
-
-# %% Linear Search - Task 3 Case-Insensitive Name Search
-def find_by_name_case_insensitive(name):
-    name = name.lower()
-    for v in students.values():
-        if name == v["name"].lower():
-            return v
-    return False
-print(find_by_name_case_insensitive("ASHA"))
-
 # %% Binary Search - Task 4 + 5 Binary Search Dry run
 values = [3,7,11,18,24,31,42,56,70]
 target = 42
@@ -69,7 +30,7 @@ print(binary_search(values, target))
 #                5      9       7       56
 #                5      6       5       23
 #                6      6       6       38
-#                7      6       -       STOP  
+#                7      6       -       STOP
 
 # %% Binary Search - Task 7 Search for an Exact Score
 score_index = [
@@ -94,7 +55,7 @@ def find_score(score_index,target_score):               #Best: O(1) if the first
 print(find_score(score_index,78))
 
 #• What cost would be involved if you had to sort from scratch every single time? o(n log n)
-sorting - n log n + binary search - o(log n)
+#sorting - n log n + binary search - o(log n)
 
 # %% Binary Search - Task 8 First Occurrence with Duplicates
 scores = [60, 70, 70, 70, 80, 90]
@@ -116,7 +77,7 @@ def first_occurrence(scores, target):               #Best: O(1) if the first mid
     return w
 print(first_occurrence(scores, target))
 
-# %%  search 
+# %%  search
 values = [3,7,11,18,24,31,42,56,70]
 target = 15
 
@@ -151,30 +112,12 @@ def binary_recu(values, left, right, target):
         return mid          #index returned
     if values[mid] < target:
         return binary_recu(values,mid + 1, right, target)
-    elif values[mid] > target: 
+    elif values[mid] > target:
         return binary_recu(values,left, mid - 1, target)
 print(binary_search(values, target))
 
 
 # %% Chapter - 6 (Page 14)
-
-#%% Exercise A - Find first Falling Score
-def failing_score(scores, fail_score):
-    for i in range(len(scores)):
-        if scores[i] < fail_score:
-            return scores[i]
-    return -1
-print(failing_score([23, 34, 55, 58, 65], 40))
-
-# %% Exercise B - Find all Python students
-def find_students_by_course(course):            #O(n)
-    result =[]
-    for k, v in students.items():
-        if v["course"] == course:
-            result.append(v["name"])
-        # return result                 ## finds only first student because within loop         
-    return result                       ##finds all students
-print(find_students_by_course("Python"))
 
 #%% Exercise C - Exact Sorted score
 def binary_search(scores, target):
@@ -212,28 +155,47 @@ print(insert_index(values, target))
 # %% Exercise E - First and Last occurence
 values = [10,20,20,20,30,40]
 target = 20
-
-def recursive_function(values, target):
+def find_occurence(values, target, first):
     left = 0
     right = len(values) - 1
-    w = -1
-    return rec_function(left, right, values, target)
+    ans = -1
+    while left <= right:
+        mid = (left + right) // 2
+        if values[mid] == target:
+            ans = mid
+            if first:
+                right = mid - 1
+            else:
+                left = mid + 1
+        elif values[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return ans
+print(find_occurence(values, 20, first=True))
+print(find_occurence(values, 20, first=False))
 
-def rec_function(left, right, values, target, w):
-    if left > right:
-        return w 
-    mid = (right + left)//2
-    if values[mid] == target: ##TODO
-        w = mid
-        right = mid - 1
-    elif values[mid] < target:
-        return rec_function(mid + 1, right, values, target)
-    else:
-        return rec_function(left, mid - 1, values, target)
-print(recursive_function(values, target))
-##wrong, need to do again
+# %% Excercise F - Count comparisons (binary side)
+#  Modify linear and binary search to return both result and comparison count. Compare on large sorted lists
 
+values = [3,7,11,18,24,31,42,56,70]
+target = 42
 
-
+def binary_search(values, target):
+    left = 0
+    n = len(values)
+    right = n-1
+    count = 0
+    while left <= right:
+        mid = (left+right)//2
+        count = count + 1
+        if values[mid] == target:
+            return mid, count
+        if values[mid] < target:
+            left = mid + 1
+        elif values[mid] > target:
+            right = mid - 1
+    return -1, count
+print(binary_search(values, target))
 
 # %%
