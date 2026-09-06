@@ -134,3 +134,34 @@ def find_by_name_prefix(prefix):
 #All students in a course   -> Linear Search. Course isn't a key, and we need every match, so a full O(n) scan.
 #Membership in a Set of skills -> Set membership. "in" on a Set is average O(1), no comparisons needed.
 
+#%% challenge 5 - page 16 module 2 - Count Scale comparison
+def scale_experiment():
+    sizes = [10, 100, 1000, 1000000]
+    for n in sizes:
+        values = list(range(n))  #---makes list [0, 1, 2, ..., n-1]
+        target = n - 1
+
+    #linear count function
+        # def linear_count():
+        linear_count = 0
+        for i in range(len(values)):
+            linear_count = linear_count + 1
+            if values[i] == target:
+                break
+
+        # def binary_count():
+        binary_count = 0
+        left = 0
+        right = len(values)-1
+        while left <= right:
+            mid = (left+right)//2
+            binary_count = binary_count + 1
+            if values[mid] == target:
+                break       
+            elif values[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        print(f"n={n}: linear={linear_count}, binary={binary_count}")    
+scale_experiment()         
+# %%
