@@ -135,6 +135,11 @@ def find_by_name_prefix(prefix):
 #Membership in a Set of skills -> Set membership. "in" on a Set is average O(1), no comparisons needed.
 
 #%% challenge 5 - page 16 module 2 - Count Scale comparison
+
+Challenge 5 - Scale Experiment
+#Generate sorted lists of 10, 100, 1,000 and 1,000,000 integers. Count comparisons for searching the final
+#value with Linear Search and Binary Search. Do not focus on wall-clock timing; focus on growth.
+
 def scale_experiment():
     sizes = [10, 100, 1000, 1000000]
     for n in sizes:
