@@ -58,9 +58,7 @@ leaderboard_tiebreak = sorted(students_list, key=lambda s: (-s[2], s[1]))
 print(leaderboard_tiebreak)
 
 # %% Exercise F - Tie Break (done): manual insertion sort, score desc then name asc
-# Bug fix: original had `j >= 0 and A or B` which drops the j >= 0 guard from
-# B (operator precedence: `and` binds tighter than `or`), so a tie at index 0
-# raised an IndexError on students_list[-1]. Parenthesize the guard properly.
+
 students_list = [
      ("ST101", "asha", 98),
      ("ST102", "Riya", 91),

@@ -8,6 +8,7 @@ def add_student(student_id, name, age, course):
                             "age" : age,
                             "course": course,
                             "marks": [],
+                            "score": 0,
                             "skills": set()}
     return True
 
