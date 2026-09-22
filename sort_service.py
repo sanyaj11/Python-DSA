@@ -115,7 +115,6 @@ print(top_k(k))
 
 # %% course_leaderboard(course) - filter by course and score descending
 from data import students
-
 def course_leaderboard(course):
     records = []
     for key, v in students.items():
@@ -133,5 +132,199 @@ def course_leaderboard(course):
 print(course_leaderboard(course="python"))
 
 # %% tie breaking(): equal scores ordered by name
+from data import students
+def tie_breaking():
+    records = []
+    for key, v in students.items():
+        records.append((key, v["score"], v["name"]))
+    n = len(records)
+    for i in range(n-1):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if records[j][1] < records[j+1][1] or (records[j][1] == records[j+1][1] and records[j][2] > records[j+1][2]) :
+                records[j], records[j+1] = records[j+1], records[j]
+                swapped = True
+        if swapped == False:
+            break
+    return records
+print(tie_breaking())
+
+#%% tie breaking
+from data import students
+def tie_breaking():
+    records = []
+    for key, v in students.items():
+        records.append((key, v["score"], v["name"]))
+    return sorted(records, key=lambda potato:(-potato[1], potato[2]) )
+print(tie_breaking())
 
 
+# %% build score index(): ascending (score, student_id) records
+from data import students
+def build_score_index():
+    records = []
+    for key, v in students.items():
+        records.append((v["score"], key))
+    n = len(records)
+    for i in range(n-1):
+        min_ind = i
+        for j in range(i+1, n):
+            if records[min_ind] > records[j]:
+                min_ind = j
+        if min_ind != i:
+            records[i], records[min_ind] = records[min_ind], records[i]
+    return records
+print(build_score_index())
+
+# %%find score(score): binary search the score index #does handle duplicates
+from data import students
+
+def binary_search(records, score):
+    left = 0
+    right = len(records) - 1
+    while left <= right:
+        mid = (left+right)//2
+        if records[mid][1] == score:
+            return records[mid][0], mid
+        elif records[mid][1] < score:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return None
+
+def find_score(score):
+    records = []
+    for key, v in students.items():
+        records.append((key, v["score"]))
+    n = len(records)
+    for i in range(1, n):
+        keys = records[i]
+        j = i - 1
+        while j >= 0 and keys < records[j]:
+            records[j+1] = records[j]
+            j = j - 1
+        records[j+1] = keys
+    return binary_search(records, score)
+score = 91
+print(find_score(score))
+
+# %% 9 - Challenge Tasks
+#Challenge 1 - Top K
+def top_k_challenge(k):
+    records = []
+    for key, v in students.items():
+        records.append((key, v["score"]))
+    n = len(records)
+    if k > n:
+        k = n
+    for i in range(k):
+        max_ind = i
+        for j in range(i + 1, n):
+            if records[max_ind][1] < records[j][1]:
+                max_ind = j
+        if max_ind != i:
+            records[i], records[max_ind] = records[max_ind], records[i]
+    return records[:k]
+print(top_k_challenge(3))
+
+
+#%% Challenge 2 - Stable leaderboard using bubble sort since its preseves the order
+from data import students
+
+def stable_leaderboard():
+    records = []
+    for key, v in students.items():
+        records.append((key, v["name"], v["score"]))
+    n = len(records)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if records[j][2] < records[j+1][2]:         #decreasing order
+                records[j], records[j+1] = records[j+1], records[j]
+                swapped = True
+        if swapped == False:
+            break
+    return records
+print(stable_leaderboard())
+
+#%% Challenge 3 - multi level ordering
+from data import students
+def function_multi_level():
+    records = []
+    for k, v in students.items():
+        records.append((k, v["course"], v["score"]))
+    records = sorted(records, key=lambda potato:(potato[1], -potato[2]))
+    return records
+print(function_multi_level())
+
+#%% Challenge 4 - Performance Experiment
+def bubble_count(values):
+    values = values.copy()
+    n = len(values)
+    count = 0
+    for i in range(n - 1):
+        swapped = False
+        for j in range(0, n - i - 1):
+            count = count + 1
+            if values[j] > values[j+1]:
+                values[j], values[j+1] = values[j+1], values[j]
+                swapped = True
+        if swapped == False:
+            break
+    return count
+
+def selection_count(values):
+    values = values.copy()
+    n = len(values)
+    count = 0
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            count = count + 1
+            if values[j] < values[min_index]:
+                min_index = j
+        if min_index != i:
+            values[i], values[min_index] = values[min_index], values[i]
+    return count
+
+def insertion_count(values):
+    values = values.copy()
+    n = len(values)
+    count = 0
+    for i in range(1, n):
+        key = values[i]
+        j = i - 1
+        while j >= 0:
+            count = count + 1
+            if values[j] > key:
+                values[j+1] = values[j]
+                j = j - 1
+            else:
+                break
+        values[j+1] = key
+    return count
+
+base_values = [10, 2, 4, 5, 6, 7, 8, 9, 1]
+sorted_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+reverse_values = [9, 8, 7, 6, 5, 4, 3, 2, 1]
+random_values = [6, 1, 9, 4, 10, 2, 7, 5, 8] 
+
+print("Sorted input:", sorted_values)
+print("bubble comparisons:", bubble_count(sorted_values))
+print("selection comparisons:", selection_count(sorted_values))
+print("insertion comparisons:", insertion_count(sorted_values))
+
+print("Reverse input:", reverse_values)
+print("bubble comparisons:", bubble_count(reverse_values))
+print("selection comparisons:", selection_count(reverse_values))
+print("insertion comparisons:", insertion_count(reverse_values))
+
+print("Random input:", random_values)
+print("bubble comparisons:", bubble_count(random_values))
+print("selection comparisons:", selection_count(random_values))
+print("insertion comparisons:", insertion_count(random_values))
+
+#%% Challenge 5 - System Design
+#index once and reusing it is better than sorting before every search.
+#Sorting is expensive O(n) at best, if we sort before every search for large data then its waste of work
+#sorting once and reusing the search is better due to cost and time+space complexity.
